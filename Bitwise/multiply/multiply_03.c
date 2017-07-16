@@ -9,21 +9,19 @@ int loop_counter = 0;
 	multiply (a=-96, b=1), loop_counter = 5
 	multiply (a=-192, b=0), loop_counter = 6
 
-	The integer 1 and 9 are odd numbers.
-
+	When the integers 1 and 9 are odd numbers:
 	(gdb) p 1 << 31 >> 31
 	$1 = 11111111111111111111111111111111
 	(gdb) p 9 << 31 >> 31
 	$1 = 11111111111111111111111111111111
 
-	The integer 2, 4, and 18 are even numbers.
-
+	When the integers 2, 4, and 18 are even numbers:
 	(gdb) p 2 << 31 >> 31
-	$1 = 11111111111111111111111111111111
+	$1 = 0
 	(gdb) p 4 << 31 >> 31
-	$1 = 11111111111111111111111111111111
+	$1 = 0
 	(gdb) p 18 << 31 >> 31
-	$1 = 11111111111111111111111111111111
+	$1 = 0
 */
 
 int multiply(int a, int b)
