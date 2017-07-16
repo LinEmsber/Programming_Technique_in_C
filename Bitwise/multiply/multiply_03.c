@@ -1,39 +1,45 @@
-/* Using bitwise operator to do a multiply function */
-
 #include <stdio.h>
 
-int add(int a, int b)
-{
-	if (b)
-		return add(a^b, (a&b)<<1 );
-	else
-		return a;
-}
+int loop_counter = 0;
 
+/*	multiply (a=-6, b=18), loop_counter = 1
+	multiply (a=-12, b=9), loop_counter = 2
+	multiply (a=-24, b=4), loop_counter = 3
+	multiply (a=-48, b=2), loop_counter = 4
+	multiply (a=-96, b=1), loop_counter = 5
+	multiply (a=-192, b=0), loop_counter = 6
 
-int multiply_3(int a, int b)
+	The integer 1 and 9 are odd numbers.
+
+	(gdb) p 1 << 31 >> 31
+	$1 = 11111111111111111111111111111111
+	(gdb) p 9 << 31 >> 31
+	$1 = 11111111111111111111111111111111
+
+	The integer 2, 4, and 18 are even numbers.
+
+	(gdb) p 2 << 31 >> 31
+	$1 = 11111111111111111111111111111111
+	(gdb) p 4 << 31 >> 31
+	$1 = 11111111111111111111111111111111
+	(gdb) p 18 << 31 >> 31
+	$1 = 11111111111111111111111111111111
+*/
+
+int multiply(int a, int b)
 {
-	// printf("a: %d, b: %d\t", a, b);
-	// printf("b << 31 >> 31: %d\t", b << 31 >> 31);
-	// printf("a & ( b << 31 >> 31) ): %d\n", a & ( b << 31 >> 31) );
-	if (!a)
+	loop_counter++;
+	if (!a || !b)
 		return 0;
 
-	return multiply_3( a << 1, b >> 1 ) + ( a & ( b << 31 >> 31) );
+	return multiply( a << 1, b >> 1 ) + ( a & ( b << 31 >> 31) );
 }
-
-
-// Sum of the corresponding number a, when the corresponding number is odd number.
-// 6 * 2 = 12		18 / 2  = 9 (O)
-// 6 * 2^2 = 24		18 / 2^2 = 4 (X)
-// 6 * 2^3 = 48		18 / 2^3 = 2 (X)
-// 6 * 2^4 = 96		18 / 2^4 = 1 (O)
-//
-// so,
-// 6 * 18 = 12 + 96 = 108
-
 
 int main()
 {
-	printf("%d\n", multiply_3(6, 18) );
+	int x = -6;
+	int y = 18;
+	int ans = multiply(x, y);
+	printf("x * y: %d\n", ans );
+	printf("loop_counter: %d\n", loop_counter );
 }
